@@ -59,6 +59,17 @@ struct PlayCoverApp: App {
             CommandGroup(replacing: CommandGroupPlacement.newItem) {
                 EmptyView()
             }
+            CommandGroup(replacing: .appInfo) {
+                Button("About PlayCover") {
+                    NSApplication.shared.orderFrontStandardAboutPanel(
+                        options: [
+                            NSApplication.AboutPanelOptionKey.version: NSString(
+                                string: (Bundle.main.object(forInfoDictionaryKey: "GIT_COMMIT_HASH") as? String)!
+                            ),
+                        ]
+                    )
+                }
+            }
         }.handlesExternalEvents(matching: Set(arrayLiteral: "{same path of URL?}")) // create new window if doesn't exist
     }
     
